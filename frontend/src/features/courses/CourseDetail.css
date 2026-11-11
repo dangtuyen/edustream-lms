@@ -1,0 +1,642 @@
+/* ==========================================================================
+   COURSE DETAIL & CLASSROOM THEATER LAYOUT
+   ========================================================================== */
+.course-detail-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.status-message {
+  padding: 4rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.status-message.error {
+  color: var(--danger);
+}
+
+/* Header Banner */
+.course-detail-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.course-detail-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--bg-dark);
+  margin-top: 0.35rem;
+}
+
+.course-detail-desc {
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+  max-width: 800px;
+  line-height: 1.5;
+}
+
+.btn-live-studio {
+  width: auto;
+  background-color: #dc2626;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-live-studio:hover {
+  background-color: #b91c1c;
+}
+
+/* Two-Column Classroom Grid */
+.classroom-split-layout {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Left Column: Video Theater */
+.theater-card {
+  background-color: #0f172a;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+
+.player-aspect-wrapper {
+  position: relative;
+  padding-top: 56.25%;
+  background-color: #000000;
+}
+
+.react-player-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.transcoding-placeholder {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f8fafc;
+  padding: 3rem;
+  text-align: center;
+  background-color: #0f172a;
+}
+
+.transcoding-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.transcoding-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.transcoding-subtitle {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-top: 0.35rem;
+}
+
+.theater-footer {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border);
+}
+
+.now-playing-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.active-lesson-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--bg-dark);
+  margin-top: 0.2rem;
+}
+
+.empty-theater-card {
+  padding: 5rem 2rem;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px dashed var(--border);
+}
+
+.empty-theater-card h3 {
+  font-size: 1.25rem;
+  color: var(--bg-dark);
+  margin-bottom: 0.5rem;
+}
+
+.empty-theater-card p {
+  color: var(--text-muted);
+}
+
+/* Right Column: Syllabus Playlist */
+.classroom-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.syllabus-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.syllabus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+}
+
+.syllabus-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--bg-dark);
+}
+
+.syllabus-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.syllabus-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.syllabus-item {
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: all 0.15s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.syllabus-item:hover {
+  background-color: #f8fafc;
+  transform: translateX(2px);
+}
+
+.syllabus-item.selected {
+  border-color: var(--primary);
+  background-color: #eef2ff;
+}
+
+.syllabus-item-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--bg-dark);
+}
+
+.syllabus-item.selected .syllabus-item-title {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.lesson-status-pill {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 50px;
+  font-weight: 700;
+  white-space: nowrap;
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.lesson-status-pill.ready {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.syllabus-empty-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 1rem 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 968px) {
+  .classroom-split-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-edit-course {
+  background-color: #ffffff;
+  color: var(--bg-dark);
+  border: 1px solid var(--border);
+  padding: 0.7rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-edit-course:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.edit-panel-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.edit-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.edit-panel-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--bg-dark);
+}
+
+.edit-grid-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.25rem;
+}
+
+.edit-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+  min-height: 90px;
+  resize: vertical;
+}
+
+.edit-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.edit-checkbox-row input {
+  width: auto;
+  cursor: pointer;
+}
+
+.edit-actions-row {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.btn-secondary {
+  padding: 0.65rem 1.25rem;
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.syllabus-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-icon-action {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+}
+
+.btn-icon-action:hover {
+  background-color: #f1f5f9;
+  color: var(--bg-dark);
+}
+
+.btn-icon-action.delete:hover {
+  background-color: #fef2f2;
+  color: var(--danger);
+  border-color: #fecaca;
+}
+
+.lesson-edit-box {
+  background-color: #f8fafc;
+  border: 1px solid var(--primary);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.lesson-edit-box h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--bg-dark);
+}
+
+.upload-card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+}
+
+.upload-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--bg-dark);
+}
+
+.upload-feedback {
+  padding: 0.75rem;
+  border-radius: 6px;
+  background-color: #f0fdf4;
+  color: #166534;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.upload-feedback.error {
+  background-color: #fef2f2;
+  color: var(--danger);
+}
+
+@media (max-width: 768px) {
+  .edit-grid-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   UNIFIED RESPONSIVE PAGINATION INTERFACE STYLES
+   ========================================================================== */
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  width: 100%;
+}
+
+.pagination-btn {
+  background-color: #ffffff;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.pagination-btn:disabled {
+  background-color: #f8fafc;
+  color: var(--text-muted);
+  border-color: var(--border);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination-btn.active {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.pagination-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0.5rem;
+}
+
+/* ==========================================================================
+   QUIZ ASSESSMENT INTERACTIVE AREA STYLES
+   ========================================================================== */
+.quiz-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.quiz-option-card {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: #ffffff;
+  font-weight: 500;
+}
+
+.quiz-option-card:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.quiz-option-card.selected {
+  border-color: var(--primary);
+  background-color: #eff6ff;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.result-banner {
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.result-banner.passed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.result-banner.failed {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* ==========================================================================
+   REVENUE DASHBOARD GRID & TRANSACTION MATRIX
+   ========================================================================== */
+.revenue-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card-finance {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card-finance h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card-finance .amount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--bg-dark);
+}
+
+.stat-card-finance .amount.green {
+  color: var(--success);
+}
+
+.transaction-table-wrapper {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-top: 2rem;
+}
+
+.table-node {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.table-node th {
+  background-color: #f8fafc;
+  padding: 1rem;
+  font-weight: 700;
+  color: var(--bg-dark);
+  border-bottom: 1px solid var(--border);
+}
+
+.table-node td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-main);
+}
+
+.chart-bar-visual-wrapper {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.custom-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.bar-fill-node {
+  height: 24px;
+  background-color: var(--primary);
+  border-radius: 4px;
+  transition: width 0.5s ease-in-out;
+}
