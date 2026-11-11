@@ -7,6 +7,9 @@ import Course from '../courses/courseModel.js';
  * @access  Private (Student)
  */
 export const processSimulatedCheckout = async (req, res) => {
+  if (!req.user || !req.user._id) {
+    return res.status(401).json({ message: 'Please log in to your student account before checking out.' });
+  }
   const { courseId, cardNumber, cardExpiry, cvv } = req.body;
   const studentId = req.user._id;
 
@@ -57,6 +60,9 @@ export const processSimulatedCheckout = async (req, res) => {
  * @access  Private (Instructor)
  */
 export const getInstructorRevenueMetrics = async (req, res) => {
+  if (!req.user || !req.user._id) {
+    return res.status(401).json({ message: 'Please log in to your student account before checking out.' });
+  }
   const instructorId = req.user._id;
 
   try {

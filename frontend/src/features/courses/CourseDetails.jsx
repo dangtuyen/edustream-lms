@@ -293,7 +293,17 @@ export default function CourseDetail() {
               <span style={{ fontSize: '3rem' }}>🔒</span>
               <h3 style={{ marginTop: '1rem', fontSize: '1.4rem' }}>Classroom Framework Locked</h3>
               <p style={{ color: 'var(--text-muted)', marginTop: '0.5rem', marginBottom: '1.5rem' }}>You must enroll and complete the simulation tuition verification processing parameters to access lectures.</p>
-              <button className="btn-submit" style={{ width: 'auto', padding: '0.75rem 2rem' }} onClick={() => setShowCheckout(true)}>
+              <button
+                className="btn-submit"
+                style={{ width: 'auto', padding: '0.75rem 2rem' }}
+                onClick={() => {
+                  if (!token) {
+                    navigate('/login');
+                  } else {
+                    setShowCheckout(true);
+                  }
+                }}
+              >
                 Unlock This Course Content Immediately
               </button>
             </div>

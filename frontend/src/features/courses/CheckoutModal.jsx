@@ -52,6 +52,10 @@ export default function CheckoutModal({ course, onClose, onPaymentSuccess }) {
     const cleanCardNumber = cardData.cardNumber.replace(/\s/g, '');
 
     const token = localStorage.getItem('token');
+    if (!token || token === 'null' || token === 'undefined') {
+      setError('You are not logged in. Please log in to your student account to make a payment.');
+      return;
+    }
     try {
       const res = await fetch('http://localhost:5000/api/revenue/checkout', {
         method: 'POST',
