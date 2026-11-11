@@ -55,48 +55,61 @@ export const processSimulatedCheckout = async (req, res) => {
 };
 
 /**
- * @desc    Fetch comprehensive revenue dashboard metrics analytics for individual instructor accounts
- * @route   GET /api/revenue/instructor/revenue
+ * @desc    Fetch comprehensive revenue dashboard metrics & paginated ledger records
+ * @route   GET /api/revenue/instructor/revenue?page=1&limit=10
  * @access  Private (Instructor)
  */
 export const getInstructorRevenueMetrics = async (req, res) => {
   if (!req.user || !req.user._id) {
-    return res.status(401).json({ message: 'Please log in to your student account before checking out.' });
+    return res.status(401).json({ message: 'Please log in as an instructor.' });
   }
+
   const instructorId = req.user._id;
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 10;
+  const skip = (page - 1) * limit;
 
   try {
-    // Locate wallet totals assets metrics
     let wallet = await InstructorWallet.findOne({ instructor: instructorId });
     if (!wallet) {
       wallet = await InstructorWallet.create({ instructor: instructorId, totalBalance: 0, lifetimeEarnings: 0 });
     }
 
-    // Pull individual transaction histories logs matching this instructor's master listings
     const courses = await Course.find({ instructor: instructorId }).select('_id');
     const courseIdsArray = courses.map(c => c._id);
 
+    // Total count across all transactions for pagination & summary
+    const totalSalesCount = await Enrollment.countDocuments({ course: { $in: courseIdsArray } });
+
+    // Fetch only 10 records for the requested page
     const enrollmentLogs = await Enrollment.find({ course: { $in: courseIdsArray } })
       .populate('student', 'name email')
       .populate('course', 'title price')
-      .sort({ enrolledAt: -1 });
+      .sort({ enrolledAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
-    // Group calculation vectors to draw charts analytics on frontend side
+    // Aggregate full sales breakdown for the bar chart
     const courseEarningsReport = await Enrollment.aggregate([
       { $match: { course: { $in: courseIdsArray } } },
       { $group: { _id: '$course', totalEarned: { $sum: '$amountPaid' }, salesCount: { $count: {} } } }
     ]);
 
-    // Populate titles safely onto aggregated calculations rows
     const populatedCourseEarnings = await Course.populate(courseEarningsReport, { path: '_id', select: 'title' });
 
     res.status(200).json({
       summary: {
         currentBalance: wallet.totalBalance,
         lifetimeEarnings: wallet.lifetimeEarnings,
-        totalSalesCount: enrollmentLogs.length
+        totalSalesCount
       },
       transactions: enrollmentLogs,
+      pagination: {
+        total: totalSalesCount,
+        page,
+        limit,
+        pages: Math.ceil(totalSalesCount / limit) || 1
+      },
       chartData: populatedCourseEarnings.map(item => ({
         courseTitle: item._id?.title || 'Removed Course',
         revenue: item.totalEarned,

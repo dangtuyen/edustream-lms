@@ -58,10 +58,23 @@ export const addLessonToCourse = async (req, res) => {
   }
 };
 
-export const  createCourse = async (req, res) => {
+export const createCourse = async (req, res) => {
   try {
-    const { title, description, price } = req.body;
-    const course = await Course.create({ title, description, price, instructor: req.user.id });
+    if (!req.user || (!req.user._id && !req.user.id)) {
+      return res.status(401).json({ message: 'Please log in with your instructor account.' });
+    }
+
+    const { title, description, price, isLive } = req.body;
+    const instructorId = req.user._id || req.user.id;
+
+    const course = await Course.create({
+      title,
+      description,
+      price: Number(price) || 0,
+      isLive: Boolean(isLive),
+      instructor: instructorId
+    });
+
     res.status(201).json(course);
   } catch (err) {
     res.status(500).json({ message: err.message });
