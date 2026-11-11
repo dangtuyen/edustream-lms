@@ -1,0 +1,139 @@
+/* ==========================================================================
+   WEBRTC LIVE CLASSROOM STUDIO ENVIRONMENT LAYOUT
+   ========================================================================== */
+.live-room-container {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.live-grid-split {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 1.5rem;
+  height: calc(100vh - 160px);
+  min-height: 550px;
+}
+
+/* Video Stage Area Styles */
+.video-stage-wrapper {
+  background-color: #0f172a;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+}
+
+.instructor-video-frame {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #020617;
+}
+
+.offline-notice-screen {
+  text-align: center;
+  color: #94a3b8;
+  padding: 2rem;
+}
+
+.offline-notice-screen h2 {
+  font-size: 1.75rem;
+  color: #f8fafc;
+  margin-bottom: 0.5rem;
+}
+
+/* Integrated Instant Messenger Chat Module Box */
+.live-chat-panel {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.chat-panel-header {
+  padding: 1rem 1.25rem;
+  background-color: #f8fafc;
+  border-bottom: 1px solid var(--border);
+  font-weight: 700;
+  color: var(--bg-dark);
+}
+
+.chat-messages-scroll-area {
+  flex-grow: 1;
+  padding: 1.25rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.chat-bubble-row {
+  display: flex;
+  flex-direction: column;
+  max-width: 85%;
+}
+
+.chat-bubble-row.me {
+  align-self: flex-end;
+}
+
+.chat-user-meta {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+  padding-left: 0.25rem;
+}
+
+.chat-bubble-text {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.chat-bubble-row.me .chat-bubble-text {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+.chat-input-form {
+  padding: 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 0.5rem;
+  background-color: #f8fafc;
+}
+
+.chat-input-form input {
+  flex-grow: 1;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.chat-input-form button {
+  padding: 0.65rem 1.25rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chat-input-form button:hover {
+  background-color: var(--primary-hover);
+}

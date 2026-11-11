@@ -1,0 +1,31 @@
+{
+  "name": "lms-live-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@livekit/components-react": "^2.9.25",
+    "@livekit/components-styles": "^1.2.0",
+    "@reduxjs/toolkit": "^2.2.1",
+    "@stripe/stripe-js": "^10.2.1",
+    "axios": "^1.6.7",
+    "chart.js": "^4.6.1",
+    "hls.js": "^1.7.4",
+    "livekit-client": "^2.23.0",
+    "lucide-react": "^1.70.0",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^18.2.0",
+    "react-player": "^3.4.0",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.1.4"
+  }
+}
