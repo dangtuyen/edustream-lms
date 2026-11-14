@@ -5,6 +5,7 @@ import AddLesson from './AddLesson.jsx';
 import QuizView from '../quizzes/QuizView.jsx'; 
 import CheckoutModal from './CheckoutModal.jsx'; 
 import './CourseDetail.css'; 
+import { API_BASE_URL } from '../../config/api';
 
 function parseJwt(token) { 
   try {
@@ -53,7 +54,7 @@ export default function CourseDetail() {
       }
     }
 
-    fetch(`http://localhost:5000/api/courses/${id}?userId=${fallbackUserId}`, {
+    fetch(`${API_BASE_URL}/api/courses/${id}?userId=${fallbackUserId}`, {
       method: 'GET',
       headers: latestToken ? { 
         'Authorization': `Bearer ${latestToken}`, 
@@ -99,7 +100,7 @@ export default function CourseDetail() {
     e.preventDefault();
     setSavingCourse(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/courses/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/courses/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -135,7 +136,7 @@ export default function CourseDetail() {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/courses/${id}/lessons/${lessonId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/courses/${id}/lessons/${lessonId}`, {
         method: 'PUT',
         headers: { Authorization: `Bearer ${token}` },
         body: formData
@@ -156,7 +157,7 @@ export default function CourseDetail() {
     if (!window.confirm('Remove this video lesson permanently?')) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/courses/${id}/lessons/${lessonId}`, {
+      const res = await fetch(`${API_BASE_URL}/api/courses/${id}/lessons/${lessonId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -172,7 +173,7 @@ export default function CourseDetail() {
 
   const rawUrl = activeLesson?.videoUrl || ''; 
   const cleanPath = rawUrl.startsWith('/') ? rawUrl : `/${rawUrl}`; 
-  const fullStreamingMediaUrl = rawUrl ? (rawUrl.startsWith('http') ? rawUrl : `http://localhost:5000${cleanPath}`) : ''; 
+  const fullStreamingMediaUrl = rawUrl ? (rawUrl.startsWith('http') ? rawUrl : `${API_BASE_URL}${cleanPath}`) : ''; 
 
   return (
     <div className="course-detail-container"> 

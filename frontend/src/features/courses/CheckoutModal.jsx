@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './CourseDetail.css';
 import { useNotification } from '../../App.jsx';
+import { API_BASE_URL } from '../../config/api';
 
 export default function CheckoutModal({ course, onClose, onPaymentSuccess }) {
   const [cardData, setCardData] = useState({ cardNumber: '', cardExpiry: '', cvv: '' });
@@ -57,7 +58,7 @@ export default function CheckoutModal({ course, onClose, onPaymentSuccess }) {
       return;
     }
     try {
-      const res = await fetch('http://localhost:5000/api/revenue/checkout', {
+      const res = await fetch(`${API_BASE_URL}/api/revenue/checkout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

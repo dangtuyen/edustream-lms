@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../App.jsx';
+import { API_BASE_URL } from '../../config/api';
 
 export default function AddCourse() {
   const [courseForm, setCourseForm] = useState({ title: '', description: '', price: '0', isLive: false });
@@ -53,7 +54,7 @@ export default function AddCourse() {
     const token = localStorage.getItem('token');
     try {
       // Step 1: Save the core Course Blueprint framework schema
-      const courseRes = await fetch('http://localhost:5000/api/courses', {
+      const courseRes = await fetch(`${API_BASE_URL}/api/courses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ export default function AddCourse() {
           lessonFormData.append('title', lesson.title);
           lessonFormData.append('video', lesson.file);
 
-          const lessonRes = await fetch(`http://localhost:5000/api/courses/${courseData._id}/lessons`, {
+          const lessonRes = await fetch(`${API_BASE_URL}/api/courses/${courseData._id}/lessons`, {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${token}` },
             body: lessonFormData

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import { LiveKitRoom, VideoConference } from '@livekit/components-react';
 import '@livekit/components-styles';
+import { API_BASE_URL, LIVEKIT_URL } from '../../config/api';
 
 function LiveClass() {
   const { roomName } = useParams();
@@ -12,7 +13,7 @@ function LiveClass() {
 
   useEffect(() => {
     if (userToken) {
-      axios.get(`http://localhost:5000/api/live/token?roomName=${roomName}`, {
+      axios.get(`${API_BASE_URL}/api/live/token?roomName=${roomName}`, {
         headers: { Authorization: `Bearer ${userToken}` }
       }).then(res => setToken(res.data.token));
     }
@@ -27,7 +28,7 @@ function LiveClass() {
         video={true}
         audio={true}
         token={token}
-        serverUrl="http://localhost:7800"
+        serverUrl={LIVEKIT_URL}
         data-lk-theme="default"
       >
         <VideoConference />

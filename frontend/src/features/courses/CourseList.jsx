@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CourseDetail.css';
+import { API_BASE_URL } from '../../config/api';
 
 export default function CourseList() {
   const [courses, setCourses] = useState([]);
@@ -12,7 +13,7 @@ export default function CourseList() {
   useEffect(() => {
     setLoading(true);
     // Dispatches request appending active target page query parameters
-    fetch(`http://localhost:5000/api/courses?page=${currentPage}&limit=6`)
+    fetch(`${API_BASE_URL}/api/courses?page=${currentPage}&limit=6`)
       .then((res) => res.json())
       .then((data) => {
         setCourses(Array.isArray(data.courses) ? data.courses : []);

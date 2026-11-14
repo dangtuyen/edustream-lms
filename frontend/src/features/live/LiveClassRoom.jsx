@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Room, RoomEvent, VideoPresets } from 'livekit-client';
 import './LiveClassRoom.css';
+import { API_BASE_URL } from '../../config/api';
 
 function parseJwt(token) {
   try {
@@ -45,7 +46,7 @@ export default function LiveClassRoom() {
 
     const initLiveRoom = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/live/token/${courseId}`, {
+        const res = await fetch(`${API_BASE_URL}/api/live/token/${courseId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CourseDetail.css';
+import { API_BASE_URL } from '../../config/api';
 
 export default function AddLesson({ courseId, onLessonAdded }) {
   const [title, setTitle] = useState('');
@@ -22,7 +23,7 @@ export default function AddLesson({ courseId, onLessonAdded }) {
     formData.append('video', videoFile);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/courses/${courseId}/lessons`, {
+      const res = await fetch(`${API_BASE_URL}/api/courses/${courseId}/lessons`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: formData

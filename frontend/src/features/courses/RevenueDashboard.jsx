@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CourseDetail.css';
+import { API_BASE_URL } from '../../config/api';
 
 export default function RevenueDashboard() {
   const [data, setData] = useState(null);
@@ -10,7 +11,7 @@ export default function RevenueDashboard() {
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:5000/api/revenue/instructor/revenue?page=${currentPage}&limit=10`, {
+    fetch(`${API_BASE_URL}/api/revenue/instructor/revenue?page=${currentPage}&limit=10`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())

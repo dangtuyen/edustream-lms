@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../../config/api';
 
 export default function QuizView({ courseId }) {
   const [quiz, setQuiz] = useState(null);
@@ -10,7 +11,7 @@ export default function QuizView({ courseId }) {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:5000/api/quizzes/course/${courseId}`, {
+    fetch(`${API_BASE_URL}/api/quizzes/course/${courseId}`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then(res => res.json())
@@ -44,7 +45,7 @@ export default function QuizView({ courseId }) {
     const answersArray = Object.keys(quiz.questions).map(idx => selectedAnswers[idx] ?? -1);
 
     try {
-      const res = await fetch('http://localhost:5000/api/quizzes/submit', {
+      const res = await fetch(`${API_BASE_URL}/api/quizzes/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +86,7 @@ export default function QuizView({ courseId }) {
     const handleDownloadCertificate = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch(`http://localhost:5000/api/courses/${courseId}/certificate`, {
+        const response = await fetch(`${API_BASE_URL}/api/courses/${courseId}/certificate`, {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` }
         });

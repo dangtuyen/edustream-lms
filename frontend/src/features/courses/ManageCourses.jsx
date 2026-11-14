@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './CourseDetail.css';
+import { API_BASE_URL } from '../../config/api';
 
 export default function ManageCourses() {
   const [myCourses, setMyCourses] = useState([]);
@@ -12,7 +13,7 @@ export default function ManageCourses() {
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:5000/api/courses/instructor/my-listings?page=${currentPage}&limit=4`, {
+    fetch(`${API_BASE_URL}/api/courses/instructor/my-listings?page=${currentPage}&limit=4`, {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then(res => res.json())
